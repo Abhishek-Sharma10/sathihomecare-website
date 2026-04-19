@@ -530,9 +530,9 @@ export default function Home() {
             <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Call us: +91 9451764251</p>
             <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Email: support@sathihomecare.in</p>
           </div>
-          <FooterColumn title="Services" items={footerGroups.services} />
-          <FooterColumn title="Company" items={footerGroups.company} />
-          <FooterColumn title="Support" items={footerGroups.support} />
+          <FooterColumn title="Services" items={footerGroups.services} align="left" />
+          <FooterColumn title="Company" items={footerGroups.company} align="right" />
+          <FooterColumn title="Support" items={footerGroups.support} align="left" />
         </div>
         <div style={{ maxWidth: "1480px", margin: "26px auto 0", paddingTop: "18px", borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", gap: "16px", flexWrap: "wrap", color: "#94a3b8" }} className="footer-legal-links">
           <span>Copyright 2026 Sathi Homecare. All rights reserved.</span>
@@ -627,9 +627,9 @@ function Counter({ value }) {
   return <h3 style={{ margin: 0, fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1f2937" }}>{count.toLocaleString()}+</h3>;
 }
 
-function FooterColumn({ title, items }) {
+function FooterColumn({ title, items, align = "left" }) {
   return (
-    <div className="footer-column">
+    <div className={`footer-column footer-column-${align}`}>
       <h3 style={{ margin: 0, color: "#ffffff", fontSize: "18px" }}>{title}</h3>
       <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "16px" }}>
         {items.map((item) => (
