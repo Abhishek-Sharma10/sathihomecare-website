@@ -105,6 +105,7 @@ export default function Home() {
   const [locationCoords, setLocationCoords] = useState(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const footerRef = useRef(null);
 
   const buildServicesPath = ({ type = "", query = "", nextLocation = "" } = {}) => {
@@ -122,6 +123,7 @@ export default function Home() {
   };
   const getQty = (id) => cart.find((item) => item.id === id)?.quantity || 0;
   const dashboardPath = customer ? "/user/dashboard" : partner ? "/partner/dashboard" : "/login";
+  const closeMenu = () => setIsMenuOpen(false);
 
   useEffect(() => {
     if (location.trim().length < 3) {
@@ -247,6 +249,19 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    const handleResize = () => {
+      if (window.innerWidth >= 769) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMenuOpen]);
+
   return (
     <div style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", background: "#f8f7f2", color: "#1f2937" }}>
       <style>{`
@@ -279,15 +294,31 @@ export default function Home() {
               <span style={{ fontSize: "18px", fontWeight: 700, color: "#ffffff" }}>Sathi Homecare</span>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "18px", flexWrap: "wrap" }} className="hero-nav-group">
-              <Link to="/blogs" style={heroNavLink}>Blogs</Link>
-              <Link to="/founders" style={heroNavLink}>Know the Founders</Link>
-              <Link to="/login" style={loginLink}>Login As</Link>
-              <Link to={dashboardPath} style={avatarLink}>
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen((previous) => !previous)}
+              style={menuToggleButton}
+              className="mobile-menu-toggle"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMenuOpen}
+            >
+              <span style={menuToggleLine} />
+              <span style={menuToggleLine} />
+              <span style={menuToggleLine} />
+            </button>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "18px", flexWrap: "wrap" }} className={`hero-nav-group ${isMenuOpen ? "is-open" : ""}`}>
+              <Link to="/blogs" style={heroNavLink} onClick={closeMenu}>Blogs</Link>
+              <Link to="/founders" style={heroNavLink} onClick={closeMenu}>Know the Founders</Link>
+              <Link to="/login" style={loginLink} onClick={closeMenu}>Login As</Link>
+              <Link to={dashboardPath} style={avatarLink} onClick={closeMenu}>
                 {customer?.name?.charAt(0) || partner?.name?.charAt(0) || "U"}
               </Link>
               {customer || partner ? (
-                <button type="button" onClick={logout} style={logoutButton}>
+                <button type="button" onClick={() => {
+                  closeMenu();
+                  logout();
+                }} style={logoutButton}>
                   Logout
                 </button>
               ) : null}
@@ -342,7 +373,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", paddingBottom: "32px" }} className="hero-cards-grid">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", paddingBottom: "32px" }} className="hero-cards-grid responsive-card-grid">
             {heroCards.map((card) => (
               <Link key={card.title} to={buildServicesPath({ type: card.type, nextLocation: location.trim() })} style={{ textDecoration: "none" }}>
                 <article style={{ background: "#fdfdfd", borderRadius: "38px", padding: "30px 30px 22px", minHeight: "340px", boxShadow: "0 26px 50px rgba(79, 32, 0, 0.16)", display: "flex", flexDirection: "column", justifyContent: "space-between" }} className="hero-service-card">
@@ -383,7 +414,7 @@ export default function Home() {
       </SectionShell>
 
       <SectionShell title="Featured homecare services" subtitle="A curated mix from nursing, therapy, and counselling designed like a modern booking marketplace.">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "18px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "18px" }} className="featured-services-grid responsive-card-grid">
           {featuredServices.map((service) => (
             <article key={service.id} style={{ background: "#ffffff", borderRadius: "22px", overflow: "hidden", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)" }}>
               <div style={{ position: "relative", height: "190px", background: "linear-gradient(145deg, #fff4ed, #ffe6d5)" }}>
@@ -439,7 +470,7 @@ export default function Home() {
       </SectionShell>
 
       <SectionShell title="Latest blogs for families" subtitle="Helpful articles around safe bookings, caregiving, recovery support, and therapy planning.">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "18px" }} className="blog-preview-grid">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "18px" }} className="blog-preview-grid responsive-card-grid">
           {blogsData.slice(0, 3).map((blog) => (
             <article key={blog.id} style={{ background: "#ffffff", borderRadius: "22px", padding: "20px", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)" }} className="blog-preview-card">
               <div style={{ borderRadius: "18px", overflow: "hidden", minHeight: "150px", background: "#f4f8fb" }} className="blog-preview-image-shell">
@@ -461,7 +492,7 @@ export default function Home() {
       </SectionShell>
 
       <SectionShell title="Achievements so far" subtitle="Steady progress built around real families, practical service operations, and measurable care delivery.">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "18px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "18px" }} className="stats-grid responsive-card-grid">
           {stats.map((item) => (
             <div key={item.label} style={{ background: "#ffffff", borderRadius: "26px", padding: "30px 24px", textAlign: "center", boxShadow: "0 14px 32px rgba(15, 23, 42, 0.06)" }}>
               <Counter value={item.value} />
@@ -471,7 +502,7 @@ export default function Home() {
         </div>
       </SectionShell>
 
-      <section style={{ maxWidth: "1480px", margin: "0 auto", padding: "56px 24px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "22px" }} className="feedback-grid">
+      <section style={{ maxWidth: "1480px", margin: "0 auto", padding: "56px 24px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "22px" }} className="feedback-grid responsive-two-grid">
         <div style={{ background: "#ffffff", borderRadius: "28px", padding: "28px", boxShadow: "0 14px 32px rgba(15, 23, 42, 0.06)" }}>
           <p style={{ margin: 0, color: "#1aa398", fontWeight: 700, fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Customer feedback</p>
           <h2 style={{ margin: "12px 0 0", fontSize: "clamp(2rem, 3vw, 2.6rem)", color: "#1f2937" }}>Families trust our care experience</h2>
@@ -796,7 +827,10 @@ const heroNavLink = {
   color: "#fff3eb",
   fontSize: "14px",
   fontWeight: 600,
-  textDecoration: "none"
+  textDecoration: "none",
+  minHeight: "44px",
+  display: "inline-flex",
+  alignItems: "center"
 };
 
 const loginLink = {
@@ -827,9 +861,34 @@ const logoutButton = {
   borderRadius: "12px",
   background: "#ef4444",
   color: "#ffffff",
+  minHeight: "44px",
   padding: "10px 14px",
   fontWeight: 700,
   cursor: "pointer"
+};
+
+const menuToggleButton = {
+  display: "none",
+  width: "44px",
+  height: "44px",
+  borderRadius: "12px",
+  border: "1px solid rgba(255,255,255,0.18)",
+  background: "rgba(255,255,255,0.08)",
+  color: "#ffffff",
+  padding: "0",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  gap: "4px",
+  cursor: "pointer"
+};
+
+const menuToggleLine = {
+  display: "block",
+  width: "18px",
+  height: "2px",
+  borderRadius: "999px",
+  background: "#ffffff"
 };
 
 const searchBoxStyle = {
