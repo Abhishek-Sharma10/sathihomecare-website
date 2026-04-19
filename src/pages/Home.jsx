@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { homepageAssets } from "../assets";
 import { usePageSeo } from "../hooks/usePageSeo";
@@ -77,6 +77,12 @@ const footerGroups = {
   ]
 };
 
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/", icon: "instagram" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/", icon: "linkedin" },
+  { label: "YouTube", href: "https://www.youtube.com/", icon: "youtube" }
+];
+
 const mixedServices = [...servicesData.nursing.slice(0, 4), ...servicesData.therapy, ...servicesData.counselling];
 
 export default function Home() {
@@ -98,6 +104,8 @@ export default function Home() {
   const [locationError, setLocationError] = useState("");
   const [locationCoords, setLocationCoords] = useState(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const footerRef = useRef(null);
 
   const buildServicesPath = ({ type = "", query = "", nextLocation = "" } = {}) => {
     const params = new URLSearchParams();
@@ -220,6 +228,23 @@ export default function Home() {
     return () => {
       document.getElementById("sathi-homecare-ld-json")?.remove();
     };
+  }, []);
+
+  useEffect(() => {
+    const footerNode = footerRef.current;
+    if (!footerNode || typeof IntersectionObserver === "undefined") {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(footerNode);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -517,34 +542,102 @@ export default function Home() {
         </Link>
       </SectionShell>
 
-      <footer style={{ marginTop: "52px", background: "#111827", color: "#cbd5e1", padding: "54px 24px 22px" }} className="page-padding">
+      <footer
+        ref={footerRef}
+        style={{ marginTop: "52px", background: "#111827", color: "#cbd5e1", padding: "38px 24px 18px" }}
+        className="page-padding site-footer"
+      >
         <div className="footer-grid" style={{ maxWidth: "1480px", margin: "0 auto" }}>
           <div style={{ maxWidth: "380px" }} className="footer-brand">
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <div style={footerLogoShell}>
                 <img src={appLogo} alt="Sathi Homecare logo" style={footerLogoImage} />
               </div>
-              <span style={{ fontSize: "18px", fontWeight: 700, color: "#ffffff" }}>Sathi Homecare</span>
+              <div style={{ display: "grid", gap: "4px" }}>
+                <span style={{ fontSize: "20px", fontWeight: 800, color: "#ffffff" }}>Sathi Homecare</span>
+                <span style={{ color: "#cbd5e1", fontSize: "14px", lineHeight: 1.6 }}>
+                  Trusted Homecare Services at Your Doorstep
+                </span>
+              </div>
             </div>
-            <p style={{ margin: "16px 0 0", lineHeight: 1.8, color: "#cbd5e1" }}>Home nursing, therapy, counselling, and elder support for families who want quality care without leaving home.</p>
-            <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Call us: +91 9451764251</p>
-            <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Email: support@sathihomecare.in</p>
+            <p style={{ margin: "14px 0 0", lineHeight: 1.75, color: "#cbd5e1" }}>
+              Home nursing, therapy, counselling, and elder support for families who want quality care without leaving home.
+            </p>
+            <div style={{ display: "grid", gap: "10px", marginTop: "16px" }}>
+              <a href="tel:+919451764251" style={footerContactLink}>
+                <FooterIcon type="phone" />
+                <span>+91 9451764251</span>
+              </a>
+              <a href="mailto:support@sathihomecare.in" style={footerContactLink}>
+                <FooterIcon type="email" />
+                <span>support@sathihomecare.in</span>
+              </a>
+            </div>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "18px" }}>
+              <Link to="/services" style={footerPrimaryCta}>Book a Service</Link>
+              <a href="tel:+919451764251" style={footerSecondaryCta}>Call Now</a>
+            </div>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "18px" }}>
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                  style={footerSocialLink}
+                  className="footer-social-link"
+                >
+                  <FooterIcon type={link.icon} />
+                </a>
+              ))}
+            </div>
           </div>
-          <FooterColumn title="Services" items={footerGroups.services} align="left" />
-          <FooterColumn title="Company" items={footerGroups.company} align="right" />
-          <FooterColumn title="Support" items={footerGroups.support} align="left" />
+          <FooterColumn title="Services" items={footerGroups.services} />
+          <FooterColumn title="Company" items={footerGroups.company} />
+          <FooterColumn title="Support" items={footerGroups.support} />
         </div>
-        <div style={{ maxWidth: "1480px", margin: "26px auto 0", paddingTop: "18px", borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", gap: "16px", flexWrap: "wrap", color: "#94a3b8" }} className="footer-legal-links">
-          <span>Copyright 2026 Sathi Homecare. All rights reserved.</span>
+        <div
+          style={{
+            maxWidth: "1480px",
+            margin: "20px auto 0",
+            paddingTop: "16px",
+            borderTop: "1px solid rgba(255,255,255,0.1)",
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "16px",
+            flexWrap: "wrap",
+            color: "#94a3b8"
+          }}
+          className="footer-legal-links"
+        >
+          <span>© 2026 SathiHomecare. All rights reserved.</span>
           <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-            <Link to="/privacy-policy" style={footerLegalLink}>Privacy</Link>
-            <Link to="/terms-conditions" style={footerLegalLink}>Terms</Link>
-            <Link to="/refund-cancellation-policy" style={footerLegalLink}>Refunds</Link>
+            <Link to="/privacy-policy" style={footerLegalLink} className="footer-link">Privacy Policy</Link>
+            <Link to="/terms-conditions" style={footerLegalLink} className="footer-link">Terms & Conditions</Link>
           </div>
         </div>
       </footer>
 
-      <div style={{ position: "fixed", left: "20px", bottom: "22px", zIndex: 13, maxWidth: "280px", background: "#ffffff", color: "#102542", borderRadius: "18px", padding: "14px 16px", boxShadow: "0 20px 45px rgba(15, 23, 42, 0.18)", border: "1px solid #e5e7eb" }} className="recent-booking-toast">
+      <div
+        style={{
+          position: "fixed",
+          left: "20px",
+          bottom: "22px",
+          zIndex: 13,
+          maxWidth: "280px",
+          background: "#ffffff",
+          color: "#102542",
+          borderRadius: "18px",
+          padding: "14px 16px",
+          boxShadow: "0 20px 45px rgba(15, 23, 42, 0.18)",
+          border: "1px solid #e5e7eb",
+          opacity: isFooterVisible ? 0 : 1,
+          transform: isFooterVisible ? "translateY(18px)" : "translateY(0)",
+          pointerEvents: isFooterVisible ? "none" : "auto"
+        }}
+        className="recent-booking-toast"
+      >
         <p style={{ margin: 0, color: "#0f8f86", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em" }}>Recent booking</p>
         <p style={{ margin: "8px 0 0", fontSize: "14px", lineHeight: 1.5 }}>{floatingTestimonials[testimonialIndex]}</p>
       </div>
@@ -627,22 +720,75 @@ function Counter({ value }) {
   return <h3 style={{ margin: 0, fontSize: "clamp(2rem, 4vw, 3rem)", color: "#1f2937" }}>{count.toLocaleString()}+</h3>;
 }
 
-function FooterColumn({ title, items, align = "left" }) {
+function FooterColumn({ title, items }) {
   return (
-    <div className={`footer-column footer-column-${align}`}>
-      <h3 style={{ margin: 0, color: "#ffffff", fontSize: "18px" }}>{title}</h3>
+    <div className="footer-column">
+      <h3 style={footerColumnTitle}>{title}</h3>
       <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "16px" }}>
         {items.map((item) => (
           typeof item === "string" ? (
-            <span key={item} style={{ color: "#cbd5e1" }}>{item}</span>
+            <span key={item} style={footerColumnText}>{item}</span>
           ) : item.href ? (
-            <a key={item.label} href={item.href} target="_blank" rel="noreferrer" style={footerColumnLink}>{item.label}</a>
+            <a key={item.label} href={item.href} target="_blank" rel="noreferrer" style={footerColumnLink} className="footer-link">{item.label}</a>
           ) : (
-            <Link key={item.label} to={item.to} style={footerColumnLink}>{item.label}</Link>
+            <Link key={item.label} to={item.to} style={footerColumnLink} className="footer-link">{item.label}</Link>
           )
         ))}
       </div>
     </div>
+  );
+}
+
+function FooterIcon({ type }) {
+  const commonProps = {
+    width: 18,
+    height: 18,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  };
+
+  if (type === "phone") {
+    return (
+      <svg {...commonProps}>
+        <path d="M5 4.5h3l1.5 4-2 1.5a15 15 0 0 0 6 6l1.5-2 4 1.5v3a1.5 1.5 0 0 1-1.5 1.5C10.596 20 4 13.404 4 5.5A1.5 1.5 0 0 1 5.5 4H5.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (type === "email") {
+    return (
+      <svg {...commonProps}>
+        <rect x="3.5" y="5.5" width="17" height="13" rx="2.5" stroke="currentColor" strokeWidth="1.7" />
+        <path d="m5 7 7 5 7-5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (type === "instagram") {
+    return (
+      <svg {...commonProps}>
+        <rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" strokeWidth="1.7" />
+        <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.7" />
+        <circle cx="17" cy="7" r="1" fill="currentColor" />
+      </svg>
+    );
+  }
+
+  if (type === "linkedin") {
+    return (
+      <svg {...commonProps}>
+        <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M8 10v6M8 8h.01M12 16v-3.25A1.75 1.75 0 0 1 13.75 11 1.75 1.75 0 0 1 15.5 12.75V16M12 10v6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...commonProps}>
+      <path d="M20 8.25a2.25 2.25 0 0 0-1.58-2.15C16.78 5.5 12 5.5 12 5.5s-4.78 0-6.42.6A2.25 2.25 0 0 0 4 8.25 23 23 0 0 0 3.5 12c0 1.27.17 2.52.5 3.75a2.25 2.25 0 0 0 1.58 2.15c1.64.6 6.42.6 6.42.6s4.78 0 6.42-.6A2.25 2.25 0 0 0 20 15.75c.33-1.23.5-2.48.5-3.75s-.17-2.52-.5-3.75Z" stroke="currentColor" strokeWidth="1.7" />
+      <path d="m10 9 5 3-5 3V9Z" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -767,12 +913,75 @@ const reviewControlButton = {
 
 const footerColumnLink = {
   color: "#cbd5e1",
-  textDecoration: "none"
+  textDecoration: "none",
+  lineHeight: 1.55
 };
 
 const footerLegalLink = {
   color: "#94a3b8",
   textDecoration: "none"
+};
+
+const footerColumnTitle = {
+  margin: 0,
+  color: "#ffffff",
+  fontSize: "18px",
+  fontWeight: 800,
+  letterSpacing: "0.01em"
+};
+
+const footerColumnText = {
+  color: "#cbd5e1",
+  lineHeight: 1.55
+};
+
+const footerContactLink = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "10px",
+  color: "#cbd5e1",
+  textDecoration: "none",
+  lineHeight: 1.5
+};
+
+const footerPrimaryCta = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "44px",
+  padding: "0 18px",
+  borderRadius: "14px",
+  background: "#1cb5ac",
+  color: "#ffffff",
+  textDecoration: "none",
+  fontWeight: 700
+};
+
+const footerSecondaryCta = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "44px",
+  padding: "0 18px",
+  borderRadius: "14px",
+  border: "1px solid rgba(255,255,255,0.18)",
+  background: "rgba(255,255,255,0.06)",
+  color: "#ffffff",
+  textDecoration: "none",
+  fontWeight: 700
+};
+
+const footerSocialLink = {
+  width: "42px",
+  height: "42px",
+  borderRadius: "12px",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "#ffffff",
+  textDecoration: "none",
+  border: "1px solid rgba(255,255,255,0.14)",
+  background: "rgba(255,255,255,0.06)"
 };
 
 const brandLogoShell = {
@@ -792,9 +1001,9 @@ const brandLogoImage = {
 };
 
 const footerLogoShell = {
-  width: "44px",
-  height: "44px",
-  borderRadius: "12px",
+  width: "54px",
+  height: "54px",
+  borderRadius: "16px",
   overflow: "hidden",
   background: "#ffffff",
   flexShrink: 0
