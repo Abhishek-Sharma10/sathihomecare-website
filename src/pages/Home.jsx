@@ -576,7 +576,7 @@ export default function Home() {
       <footer
         ref={footerRef}
         style={{ marginTop: "52px", background: "#111827", color: "#cbd5e1", padding: "38px 24px 18px" }}
-        className="page-padding site-footer"
+        className="site-footer"
       >
         <div className="footer-grid" style={{ maxWidth: "1480px", margin: "0 auto" }}>
           <div className="footer-brand">
