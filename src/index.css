@@ -28,9 +28,16 @@ img, video, iframe {
 }
 
 /* ===== CONTAINERS ===== */
+.page-shell,
+.page-section,
+.page-padding,
 .container {
   width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+.container {
   padding: 0 16px;
 }
 
@@ -138,6 +145,7 @@ button:hover {
 
 /* ===== FOOTER ===== */
 .footer-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
@@ -176,4 +184,20 @@ input, select, textarea, button {
 /* ===== SAFETY FIX ===== */
 .no-overflow {
   overflow-x: hidden;
+}
+
+/* ===== FORCE FIX (GUARANTEED) ===== */
+body > div, 
+#root > div {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+footer, .footer-grid {
+  width: 100% !important;
+}
+
+.page-shell, .container {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
