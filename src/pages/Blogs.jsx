@@ -126,14 +126,15 @@ const cardStyle = {
 const imageShell = {
   borderRadius: "20px",
   overflow: "hidden",
-  minHeight: "240px",
+  minHeight: "180px",
   background: "#f4f8fb"
 };
 
 const imageStyle = {
   width: "100%",
   height: "100%",
-  minHeight: "240px",
+  minHeight: "180px",
+  maxHeight: "180px",
   objectFit: "cover",
   display: "block"
 };

@@ -65,7 +65,7 @@ const footerGroups = {
     { label: "Blogs", to: "/blogs" },
     { label: "Know The Founders", to: "/founders" },
     { label: "How It Works", to: "/services" },
-    { label: "Join as Caregiver", to: "/partner/login" },
+    { label: "Careers", href: "https://forms.gle/o4hq9J9CrsfpgQSWA" },
     { label: "Contact Us", to: "/" }
   ],
   support: [
@@ -200,8 +200,8 @@ export default function Home() {
       name: "Sathi Homecare",
       image: new URL(homepageAssets.heroBanner, window.location.origin).toString(),
       url: window.location.origin,
-      telephone: "+91-98765-43210",
-      email: "care@sathihomecare.in",
+      telephone: "+91-9451764251",
+      email: "support@sathihomecare.in",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Lucknow",
@@ -246,7 +246,7 @@ export default function Home() {
         <div style={{ position: "absolute", inset: 0, height: "78%", background: "linear-gradient(90deg, rgba(8, 31, 53, 0.82) 0%, rgba(8, 31, 53, 0.68) 34%, rgba(12, 100, 82, 0.62) 100%)" }} />
 
         <div style={{ maxWidth: "1480px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", flexWrap: "wrap" }} className="hero-topbar">
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <div style={brandLogoShell}>
                 <img src={appLogo} alt="Sathi Homecare" style={brandLogoImage} />
@@ -254,9 +254,8 @@ export default function Home() {
               <span style={{ fontSize: "18px", fontWeight: 700, color: "#ffffff" }}>Sathi Homecare</span>
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "18px", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "18px", flexWrap: "wrap" }} className="hero-nav-group">
               <Link to="/blogs" style={heroNavLink}>Blogs</Link>
-              <Link to="/faq" style={heroNavLink}>FAQ</Link>
               <Link to="/founders" style={heroNavLink}>Know the Founders</Link>
               <Link to="/login" style={loginLink}>Login As</Link>
               <Link to={dashboardPath} style={avatarLink}>
@@ -270,7 +269,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div style={{ maxWidth: "980px", margin: "72px auto 48px", textAlign: "center" }}>
+          <div style={{ maxWidth: "980px", margin: "72px auto 48px", textAlign: "center" }} className="hero-copy-block">
             <h1 style={{ margin: 0, color: "#ffffff", fontSize: "clamp(2.3rem, 4vw, 4rem)", lineHeight: 1.18, fontWeight: 800, letterSpacing: "-0.02em" }}>
               Book home services and discover trusted caregivers with Sathi Homecare.
             </h1>
@@ -318,10 +317,10 @@ export default function Home() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", paddingBottom: "32px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", paddingBottom: "32px" }} className="hero-cards-grid">
             {heroCards.map((card) => (
               <Link key={card.title} to={buildServicesPath({ type: card.type, nextLocation: location.trim() })} style={{ textDecoration: "none" }}>
-                <article style={{ background: "#fdfdfd", borderRadius: "38px", padding: "30px 30px 22px", minHeight: "340px", boxShadow: "0 26px 50px rgba(79, 32, 0, 0.16)", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <article style={{ background: "#fdfdfd", borderRadius: "38px", padding: "30px 30px 22px", minHeight: "340px", boxShadow: "0 26px 50px rgba(79, 32, 0, 0.16)", display: "flex", flexDirection: "column", justifyContent: "space-between" }} className="hero-service-card">
                   <div>
                     <h3 style={{ margin: 0, color: "#35353d", fontSize: "clamp(1.7rem, 2.6vw, 2.5rem)", fontWeight: 800, lineHeight: 1.08 }}>{card.title}</h3>
                     <p style={{ margin: "14px 0 0", color: "#6b7280", fontSize: "18px", lineHeight: 1.45, fontWeight: 500 }}>{card.subtitle}</p>
@@ -415,11 +414,11 @@ export default function Home() {
       </SectionShell>
 
       <SectionShell title="Latest blogs for families" subtitle="Helpful articles around safe bookings, caregiving, recovery support, and therapy planning.">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "18px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "18px" }} className="blog-preview-grid">
           {blogsData.slice(0, 3).map((blog) => (
-            <article key={blog.id} style={{ background: "#ffffff", borderRadius: "22px", padding: "20px", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)" }}>
-              <div style={{ borderRadius: "18px", overflow: "hidden", minHeight: "180px", background: "#f4f8fb" }}>
-                <img src={blog.image} alt={blog.imageAlt} style={{ width: "100%", height: "100%", minHeight: "180px", objectFit: "cover", display: "block" }} loading="lazy" decoding="async" />
+            <article key={blog.id} style={{ background: "#ffffff", borderRadius: "22px", padding: "20px", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)" }} className="blog-preview-card">
+              <div style={{ borderRadius: "18px", overflow: "hidden", minHeight: "140px", background: "#f4f8fb" }}>
+                <img src={blog.image} alt={blog.imageAlt} style={{ width: "100%", height: "100%", minHeight: "140px", maxHeight: "140px", objectFit: "cover", display: "block" }} loading="lazy" decoding="async" />
               </div>
               <div style={{ display: "inline-flex", marginTop: "16px", padding: "8px 12px", borderRadius: "999px", background: "#e7fbf6", color: "#0f8f86", fontSize: "12px", fontWeight: 800, letterSpacing: "0.04em", textTransform: "uppercase" }}>{blog.category}</div>
               <h3 style={{ margin: "16px 0 0", fontSize: "22px", color: "#102542", lineHeight: 1.35 }}>{blog.title}</h3>
@@ -436,25 +435,6 @@ export default function Home() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Frequently asked questions" subtitle="Straight answers about services, bookings, safety, payments, counselling, and long-term care.">
-        <div style={{ display: "grid", gap: "14px" }}>
-          {faqData.slice(0, 5).map((item, index) => (
-            <article key={item.question} style={{ background: "#ffffff", borderRadius: "20px", padding: "18px 20px", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)", display: "grid", gridTemplateColumns: "56px minmax(0, 1fr)", gap: "14px" }} className="faq-preview-card">
-              <div style={{ width: "56px", height: "56px", borderRadius: "16px", background: "#e7fbf6", color: "#0f8f86", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800 }}>
-                {index + 1}
-              </div>
-              <div>
-                <h3 style={{ margin: 0, fontSize: "20px", color: "#102542", lineHeight: 1.35 }}>{item.question}</h3>
-                <p style={{ margin: "10px 0 0", color: "#5b6878", lineHeight: 1.75 }}>{item.answer}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <Link to="/faq" style={{ marginTop: "18px", display: "inline-flex", textDecoration: "none", background: "#102542", color: "#ffffff", padding: "12px 18px", borderRadius: "14px", fontWeight: 700 }}>
-          View all FAQs
-        </Link>
-      </SectionShell>
-
       <SectionShell title="Achievements so far" subtitle="Steady progress built around real families, practical service operations, and measurable care delivery.">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "18px" }}>
           {stats.map((item) => (
@@ -466,7 +446,7 @@ export default function Home() {
         </div>
       </SectionShell>
 
-      <section style={{ maxWidth: "1480px", margin: "0 auto", padding: "56px 24px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "22px" }}>
+      <section style={{ maxWidth: "1480px", margin: "0 auto", padding: "56px 24px 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "22px" }} className="feedback-grid">
         <div style={{ background: "#ffffff", borderRadius: "28px", padding: "28px", boxShadow: "0 14px 32px rgba(15, 23, 42, 0.06)" }}>
           <p style={{ margin: 0, color: "#1aa398", fontWeight: 700, fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Customer feedback</p>
           <h2 style={{ margin: "12px 0 0", fontSize: "clamp(2rem, 3vw, 2.6rem)", color: "#1f2937" }}>Families trust our care experience</h2>
@@ -518,6 +498,25 @@ export default function Home() {
         </section>
       ) : null}
 
+      <SectionShell title="Frequently asked questions" subtitle="Straight answers about services, bookings, safety, payments, counselling, and long-term care.">
+        <div style={{ display: "grid", gap: "14px" }}>
+          {faqData.slice(0, 5).map((item, index) => (
+            <article key={item.question} style={{ background: "#ffffff", borderRadius: "20px", padding: "18px 20px", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)", display: "grid", gridTemplateColumns: "56px minmax(0, 1fr)", gap: "14px" }} className="faq-preview-card">
+              <div style={{ width: "56px", height: "56px", borderRadius: "16px", background: "#e7fbf6", color: "#0f8f86", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800 }}>
+                {index + 1}
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: "20px", color: "#102542", lineHeight: 1.35 }}>{item.question}</h3>
+                <p style={{ margin: "10px 0 0", color: "#5b6878", lineHeight: 1.75 }}>{item.answer}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <Link to="/faq" style={{ marginTop: "18px", display: "inline-flex", textDecoration: "none", background: "#102542", color: "#ffffff", padding: "12px 18px", borderRadius: "14px", fontWeight: 700 }}>
+          View all FAQs
+        </Link>
+      </SectionShell>
+
       <footer style={{ marginTop: "52px", background: "#111827", color: "#cbd5e1", padding: "54px 24px 22px" }} className="page-padding">
         <div className="footer-grid" style={{ maxWidth: "1480px", margin: "0 auto" }}>
           <div style={{ maxWidth: "380px" }} className="footer-brand">
@@ -528,8 +527,8 @@ export default function Home() {
               <span style={{ fontSize: "18px", fontWeight: 700, color: "#ffffff" }}>Sathi Homecare</span>
             </div>
             <p style={{ margin: "16px 0 0", lineHeight: 1.8, color: "#cbd5e1" }}>Home nursing, therapy, counselling, and elder support for families who want quality care without leaving home.</p>
-            <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Call us: +91 98765 43210</p>
-            <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Email: care@sathihomecare.in</p>
+            <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Call us: +91 9451764251</p>
+            <p style={{ margin: "10px 0 0", color: "#cbd5e1" }}>Email: support@sathihomecare.in</p>
           </div>
           <FooterColumn title="Services" items={footerGroups.services} />
           <FooterColumn title="Company" items={footerGroups.company} />
@@ -545,7 +544,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <div style={{ position: "fixed", left: "20px", bottom: "22px", zIndex: 13, maxWidth: "280px", background: "#ffffff", color: "#102542", borderRadius: "18px", padding: "14px 16px", boxShadow: "0 20px 45px rgba(15, 23, 42, 0.18)", border: "1px solid #e5e7eb" }}>
+      <div style={{ position: "fixed", left: "20px", bottom: "22px", zIndex: 13, maxWidth: "280px", background: "#ffffff", color: "#102542", borderRadius: "18px", padding: "14px 16px", boxShadow: "0 20px 45px rgba(15, 23, 42, 0.18)", border: "1px solid #e5e7eb" }} className="recent-booking-toast">
         <p style={{ margin: 0, color: "#0f8f86", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em" }}>Recent booking</p>
         <p style={{ margin: "8px 0 0", fontSize: "14px", lineHeight: 1.5 }}>{floatingTestimonials[testimonialIndex]}</p>
       </div>
@@ -636,6 +635,8 @@ function FooterColumn({ title, items }) {
         {items.map((item) => (
           typeof item === "string" ? (
             <span key={item} style={{ color: "#cbd5e1" }}>{item}</span>
+          ) : item.href ? (
+            <a key={item.label} href={item.href} target="_blank" rel="noreferrer" style={footerColumnLink}>{item.label}</a>
           ) : (
             <Link key={item.label} to={item.to} style={footerColumnLink}>{item.label}</Link>
           )
@@ -786,8 +787,8 @@ const brandLogoShell = {
 const brandLogoImage = {
   width: "100%",
   height: "100%",
-  objectFit: "cover",
-  transform: "scale(1.2)"
+  objectFit: "contain",
+  transform: "scale(0.94)"
 };
 
 const footerLogoShell = {
@@ -802,6 +803,6 @@ const footerLogoShell = {
 const footerLogoImage = {
   width: "100%",
   height: "100%",
-  objectFit: "cover",
-  transform: "scale(1.22)"
+  objectFit: "contain",
+  transform: "scale(0.92)"
 };

@@ -9,7 +9,9 @@ const founders = [
     role: "Founder & CEO",
     summary: [
       "Software Engineer",
-      "Handles product, tech and platform vision"
+      "Handles product, tech and platform vision",
+      "Phone: 8090806731",
+      "Email: support@sathihomecare.in"
     ],
     image: founderAssets.abhishek
   },
@@ -77,9 +79,6 @@ export default function KnowFounders() {
             <p style={eyebrowSecondary}>Founding team</p>
             <h2 style={sectionTitle}>Card-based profiles with a cleaner launch-ready presentation</h2>
           </div>
-          <p style={sectionText}>
-            Each founder card keeps the launch layout clean while clearly explaining leadership, operations, and service expertise behind Sathi Homecare.
-          </p>
         </div>
 
         <div style={gridStyle} className="founders-grid">
@@ -100,9 +99,6 @@ export default function KnowFounders() {
                     <p key={line} style={summaryItem}>{line}</p>
                   ))}
                 </div>
-                <p style={noteStyle}>
-                  {founder.name} helps shape a care journey that is dependable, human, and better coordinated for families booking services online.
-                </p>
               </div>
             </article>
           ))}
@@ -229,7 +225,7 @@ const sectionStyle = {
 
 const sectionHeader = {
   display: "grid",
-  gridTemplateColumns: "minmax(0, 1fr) minmax(280px, 420px)",
+  gridTemplateColumns: "1fr",
   gap: "20px",
   alignItems: "end"
 };
@@ -237,12 +233,6 @@ const sectionHeader = {
 const sectionTitle = {
   margin: "10px 0 0",
   fontSize: "clamp(1.9rem, 3vw, 2.8rem)"
-};
-
-const sectionText = {
-  margin: 0,
-  color: "#475569",
-  lineHeight: 1.8
 };
 
 const gridStyle = {
@@ -306,13 +296,6 @@ const summaryItem = {
   fontWeight: 500
 };
 
-const noteStyle = {
-  margin: "16px 0 0",
-  color: "#64748b",
-  lineHeight: 1.7,
-  fontSize: "14px"
-};
-
 const missionStyle = {
   maxWidth: "1240px",
   margin: "30px auto 0",
@@ -347,6 +330,6 @@ const brandLogoShell = {
 const brandLogoImage = {
   width: "100%",
   height: "100%",
-  objectFit: "cover",
-  transform: "scale(1.22)"
+  objectFit: "contain",
+  transform: "scale(0.94)"
 };
