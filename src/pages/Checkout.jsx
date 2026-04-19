@@ -634,8 +634,8 @@ const gatewayInfoCard = {
 };
 
 const gatewayBadge = {
-  width: "180px",
-  minHeight: "180px",
+  width: "clamp(140px, 25vw, 180px)",
+  minHeight: "clamp(140px, 25vw, 180px)",
   borderRadius: "18px",
   background: "#ffffff",
   padding: "18px",

@@ -24,6 +24,7 @@ img,
 video,
 iframe {
   max-width: 100%;
+  height: auto;
 }
 
 .page-padding,
@@ -33,11 +34,70 @@ iframe {
   max-width: 100%;
 }
 
+/* Responsive Container Utilities */
+.responsive-container {
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.responsive-container-lg {
+  max-width: 1480px;
+}
+
+.responsive-container-md {
+  max-width: 1240px;
+}
+
+.responsive-container-sm {
+  max-width: 1000px;
+}
+
+/* Responsive Image Classes */
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.responsive-image-hero {
+  width: 100%;
+  max-width: 60%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .responsive-image-hero {
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-image-hero {
+    max-width: 45%;
+  }
+}
+
 input,
 button,
 select,
 textarea {
   max-width: 100%;
+}
+
+/* Mobile-specific fixes for CartBar and small screens */
+@media (max-width: 1200px) {
+  .cartbar {
+    width: clamp(180px, 20vw, 220px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cartbar {
+    display: none !important;
+  }
 }
 
 button,

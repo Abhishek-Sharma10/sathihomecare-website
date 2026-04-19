@@ -12,8 +12,8 @@ export default function PartnerCard({ partner }) {
       <div style={{ display: "flex", alignItems: "center", gap: "18px" }} className="partner-card-header">
         <div
           style={{
-            width: "74px",
-            height: "74px",
+            width: "clamp(60px, 12vw, 74px)",
+            height: "clamp(60px, 12vw, 74px)",
             borderRadius: "50%",
             background: "linear-gradient(135deg, #1cb5ac, #102542)",
             color: "#ffffff",
@@ -21,7 +21,7 @@ export default function PartnerCard({ partner }) {
             alignItems: "center",
             justifyContent: "center",
             fontWeight: 800,
-            fontSize: "28px"
+            fontSize: "clamp(22px, 5vw, 28px)"
           }}
         >
           {partner.name.charAt(0)}

@@ -181,7 +181,7 @@ export default function Services() {
 
               return (
                 <article key={`${item.type}-${item.id}`} style={{ background: "#ffffff", borderRadius: "24px", overflow: "hidden", boxShadow: "0 18px 42px rgba(15, 23, 42, 0.08)", border: "1px solid #eef2f7", display: "flex", flexDirection: "column" }}>
-                  <div style={{ position: "relative", height: "220px", background: "linear-gradient(145deg, #effcf8, #e0f2fe)" }}>
+                  <div style={{ position: "relative", height: "clamp(160px, 28vw, 220px)", width: "100%", background: "linear-gradient(145deg, #effcf8, #e0f2fe)" }}>
                     <img src={item.image} alt={item.name} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "24px" }} />
                     <div style={{ position: "absolute", top: "14px", left: "14px", background: "#1cb5ac", color: "#ffffff", padding: "6px 10px", borderRadius: "999px", fontSize: "12px", fontWeight: 700 }}>
                       {categoryLabels[item.type]}

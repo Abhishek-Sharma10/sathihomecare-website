@@ -16,7 +16,7 @@ export default function CartBar() {
         right: "18px",
         top: "50%",
         transform: "translateY(-50%)",
-        width: "220px",
+        width: "clamp(200px, 22vw, 240px)",
         background: "#102542",
         color: "#ffffff",
         borderRadius: "22px",

@@ -388,7 +388,7 @@ export default function Home() {
                     <div style={{ display: "grid", gap: "10px", justifyItems: "start" }}>
                       <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minWidth: "108px", padding: "9px 12px", borderRadius: "12px", background: "#102542", color: "#ffffff", fontWeight: 700, fontSize: "13px" }}>View Details</span>
                     </div>
-                    <img src={card.image} alt={card.title} loading="lazy" decoding="async" style={{ width: "160px", maxWidth: "55%", objectFit: "cover", alignSelf: "flex-end", borderRadius: "24px" }} />
+                    <img src={card.image} alt={card.title} loading="lazy" decoding="async" style={{ width: "auto", maxWidth: "55%", minWidth: "100px", height: "auto", objectFit: "cover", alignSelf: "flex-end", borderRadius: "24px" }} />
                   </div>
                 </article>
               </Link>
@@ -401,9 +401,9 @@ export default function Home() {
         <div style={{ overflow: "hidden", width: "100%" }}>
           <div style={{ display: "flex", gap: "24px", width: "max-content", animation: "care-marquee 28s linear infinite" }}>
             {scrollingDiscoverServices.map((item, index) => (
-              <article key={`${item.title}-${index}`} style={{ textAlign: "center", minWidth: "140px", flex: "0 0 auto" }}>
-                <div style={{ width: "114px", height: "114px", margin: "0 auto 12px", borderRadius: "50%", background: "linear-gradient(145deg, #ffffff, #fde7d9)", boxShadow: "0 12px 30px rgba(29, 41, 57, 0.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <img src={item.image} alt={item.title} loading="lazy" decoding="async" style={{ width: "74px", height: "74px", objectFit: "contain" }} />
+              <article key={`${item.title}-${index}`} style={{ textAlign: "center", minWidth: "clamp(120px, 20vw, 140px)", flex: "0 0 auto" }}>
+                <div style={{ width: "clamp(100px, 18vw, 114px)", height: "clamp(100px, 18vw, 114px)", margin: "0 auto 12px", borderRadius: "50%", background: "linear-gradient(145deg, #ffffff, #fde7d9)", boxShadow: "0 12px 30px rgba(29, 41, 57, 0.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <img src={item.image} alt={item.title} loading="lazy" decoding="async" style={{ width: "clamp(60px, 14vw, 74px)", height: "clamp(60px, 14vw, 74px)", objectFit: "contain" }} />
                 </div>
                 <h3 style={{ margin: 0, fontSize: "16px", color: "#1f2937" }}>{item.title}</h3>
                 <p style={{ margin: "6px 0 0", color: "#667085", fontSize: "13px" }}>{item.category}</p>
@@ -417,7 +417,7 @@ export default function Home() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "18px" }} className="featured-services-grid responsive-card-grid">
           {featuredServices.map((service) => (
             <article key={service.id} style={{ background: "#ffffff", borderRadius: "22px", overflow: "hidden", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)" }}>
-              <div style={{ position: "relative", height: "190px", background: "linear-gradient(145deg, #fff4ed, #ffe6d5)" }}>
+              <div style={{ position: "relative", height: "clamp(150px, 25vw, 190px)", width: "100%", background: "linear-gradient(145deg, #fff4ed, #ffe6d5)" }}>
                 <img src={service.image} alt={service.title} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "18px" }} />
                 <div style={{ position: "absolute", left: "14px", top: "14px", background: "#1aa398", color: "#ffffff", padding: "6px 10px", borderRadius: "999px", fontSize: "12px", fontWeight: 700, textTransform: "uppercase" }}>Care Special</div>
               </div>
@@ -473,8 +473,8 @@ export default function Home() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "18px" }} className="blog-preview-grid responsive-card-grid">
           {blogsData.slice(0, 3).map((blog) => (
             <article key={blog.id} style={{ background: "#ffffff", borderRadius: "22px", padding: "20px", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)" }} className="blog-preview-card">
-              <div style={{ borderRadius: "18px", overflow: "hidden", minHeight: "150px", background: "#f4f8fb" }} className="blog-preview-image-shell">
-                <img src={blog.image} alt={blog.imageAlt} style={{ width: "100%", height: "100%", minHeight: "150px", maxHeight: "150px", objectFit: "contain", display: "block" }} className="blog-preview-image" loading="lazy" decoding="async" />
+              <div style={{ borderRadius: "18px", overflow: "hidden", minHeight: "150px", width: "100%", background: "#f4f8fb" }} className="blog-preview-image-shell">
+                <img src={blog.image} alt={blog.imageAlt} style={{ width: "100%", height: "100%", minHeight: "150px", maxHeight: "180px", objectFit: "contain", display: "block" }} className="blog-preview-image" loading="lazy" decoding="async" />
               </div>
               <div style={{ display: "inline-flex", marginTop: "16px", padding: "8px 12px", borderRadius: "999px", background: "#e7fbf6", color: "#0f8f86", fontSize: "12px", fontWeight: 800, letterSpacing: "0.04em", textTransform: "uppercase" }}>{blog.category}</div>
               <h3 style={{ margin: "16px 0 0", fontSize: "22px", color: "#102542", lineHeight: 1.35 }}>{blog.title}</h3>
@@ -541,7 +541,7 @@ export default function Home() {
                 See services for this area
               </button>
             </div>
-            <div style={{ minHeight: "280px", borderRadius: "22px", overflow: "hidden", border: "1px solid #e5e7eb" }}>
+            <div style={{ minHeight: "clamp(200px, 40vw, 280px)", borderRadius: "22px", overflow: "hidden", border: "1px solid #e5e7eb" }}>
               <iframe
                 title="Selected location map"
                 style={{ width: "100%", height: "100%", border: "none" }}
