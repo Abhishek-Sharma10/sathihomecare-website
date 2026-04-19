@@ -256,12 +256,13 @@ const imageWrap = {
 };
 
 const imageStyle = {
-  width: "100%",
+  width: "80%",
   aspectRatio: "1 / 1",
   objectFit: "cover",
   objectPosition: "top center",
   borderRadius: "22px",
-  display: "block"
+  display: "block",
+  margin: "0 auto"
 };
 
 const cardBody = {
