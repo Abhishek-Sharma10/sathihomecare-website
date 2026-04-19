@@ -28,8 +28,8 @@ export default function Blogs() {
       <section style={gridStyle}>
         {blogsData.map((blog) => (
           <article key={blog.id} style={cardStyle} className="compact-mobile-card">
-            <div style={imageShell}>
-              <img src={blog.image} alt={blog.imageAlt} style={imageStyle} loading="lazy" decoding="async" />
+            <div style={imageShell} className="blog-image-shell">
+              <img src={blog.image} alt={blog.imageAlt} style={imageStyle} className="blog-image" loading="lazy" decoding="async" />
             </div>
             <div style={categoryChip}>{blog.category}</div>
             <h2 style={cardTitle}>{blog.title}</h2>

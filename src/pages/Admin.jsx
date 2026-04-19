@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { usePageSeo } from "../hooks/usePageSeo";
 import { useAuth } from "../hooks/useAuth";
+import { ADMIN_ACCESS_KEY, grantAdminAccess, hasAdminAccess } from "../utils/adminAccess";
 
 export default function Admin() {
   usePageSeo({
@@ -31,6 +32,8 @@ export default function Admin() {
     deleteAdminPartner
   } = useAuth();
   const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const [adminGatePassword, setAdminGatePassword] = useState("");
+  const [hasGateAccess, setHasGateAccess] = useState(() => hasAdminAccess());
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -133,6 +136,20 @@ export default function Admin() {
     } finally {
       setIsLoggingIn(false);
     }
+  };
+
+  const handleAccessGateSubmit = (event) => {
+    event.preventDefault();
+
+    if (adminGatePassword !== ADMIN_ACCESS_KEY) {
+      setError("Invalid admin access password.");
+      return;
+    }
+
+    grantAdminAccess();
+    setHasGateAccess(true);
+    setAdminGatePassword("");
+    setError("");
   };
 
   const handleAddPartner = async (event) => {
@@ -263,6 +280,32 @@ export default function Admin() {
   };
 
   if (!admin) {
+    if (!hasGateAccess) {
+      return (
+        <div style={pageStyle}>
+          <div style={loginCard}>
+            <Link to="/" style={backLink}>Back to Home</Link>
+            <p style={eyebrow}>Admin Access</p>
+            <h1 style={title}>Secure Admin Entry</h1>
+            <p style={subtitle}>Enter the admin access password before opening the admin login page.</p>
+            <form onSubmit={handleAccessGateSubmit} style={{ display: "grid", gap: "16px", marginTop: "22px" }}>
+              <label style={labelStyle}>
+                Access Password
+                <input
+                  type="password"
+                  value={adminGatePassword}
+                  onChange={(event) => setAdminGatePassword(event.target.value)}
+                  style={inputStyle}
+                />
+              </label>
+              {error ? <p style={{ margin: 0, color: "#ef4444" }}>{error}</p> : null}
+              <button type="submit" style={primaryButton}>Continue to Admin Login</button>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div style={pageStyle}>
         <div style={loginCard}>

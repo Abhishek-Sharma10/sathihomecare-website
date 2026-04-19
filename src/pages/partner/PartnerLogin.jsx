@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { hasAdminAccess } from "../../utils/adminAccess";
 
 export default function PartnerLogin() {
   const navigate = useNavigate();
@@ -24,6 +25,10 @@ export default function PartnerLogin() {
 
     try {
       if (mode === "admin") {
+        if (!hasAdminAccess()) {
+          navigate("/admin");
+          return;
+        }
         await loginAdmin({ username: identifier, password });
         navigate("/admin/dashboard");
       } else {

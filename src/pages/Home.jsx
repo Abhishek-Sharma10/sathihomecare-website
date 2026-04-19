@@ -417,8 +417,8 @@ export default function Home() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "18px" }} className="blog-preview-grid">
           {blogsData.slice(0, 3).map((blog) => (
             <article key={blog.id} style={{ background: "#ffffff", borderRadius: "22px", padding: "20px", border: "1px solid #ececec", boxShadow: "0 14px 28px rgba(15, 23, 42, 0.05)" }} className="blog-preview-card">
-              <div style={{ borderRadius: "18px", overflow: "hidden", minHeight: "140px", background: "#f4f8fb" }}>
-                <img src={blog.image} alt={blog.imageAlt} style={{ width: "100%", height: "100%", minHeight: "140px", maxHeight: "140px", objectFit: "cover", display: "block" }} loading="lazy" decoding="async" />
+              <div style={{ borderRadius: "18px", overflow: "hidden", minHeight: "140px", background: "#f4f8fb" }} className="blog-preview-image-shell">
+                <img src={blog.image} alt={blog.imageAlt} style={{ width: "100%", height: "100%", minHeight: "140px", maxHeight: "140px", objectFit: "cover", display: "block" }} className="blog-preview-image" loading="lazy" decoding="async" />
               </div>
               <div style={{ display: "inline-flex", marginTop: "16px", padding: "8px 12px", borderRadius: "999px", background: "#e7fbf6", color: "#0f8f86", fontSize: "12px", fontWeight: 800, letterSpacing: "0.04em", textTransform: "uppercase" }}>{blog.category}</div>
               <h3 style={{ margin: "16px 0 0", fontSize: "22px", color: "#102542", lineHeight: 1.35 }}>{blog.title}</h3>
@@ -629,7 +629,7 @@ function Counter({ value }) {
 
 function FooterColumn({ title, items }) {
   return (
-    <div>
+    <div className="footer-column">
       <h3 style={{ margin: 0, color: "#ffffff", fontSize: "18px" }}>{title}</h3>
       <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "16px" }}>
         {items.map((item) => (
