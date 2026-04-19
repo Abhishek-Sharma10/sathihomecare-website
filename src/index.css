@@ -302,7 +302,8 @@ button:hover {
 }
 
 .footer-brand {
-  justify-self: start;
+  justify-self: stretch;
+  max-width: 100%;
 }
 
 .footer-column {

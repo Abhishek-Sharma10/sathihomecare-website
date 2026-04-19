@@ -579,7 +579,7 @@ export default function Home() {
         className="page-padding site-footer"
       >
         <div className="footer-grid" style={{ maxWidth: "1480px", margin: "0 auto" }}>
-          <div style={{ maxWidth: "380px" }} className="footer-brand">
+          <div className="footer-brand">
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <div style={footerLogoShell}>
                 <img src={appLogo} alt="Sathi Homecare logo" style={footerLogoImage} />
